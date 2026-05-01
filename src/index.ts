@@ -1,12 +1,9 @@
-console.log("SERVER START OK 🔥");
-console.log("ARCHIVO NUEVO CARGADO 🔥");
-
 import app from "./app";
-import { logger } from "./lib/logger";
-import { sweepExpiredBatches } from "./lib/operations/confirmer";
 import { Pool } from "pg";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+
+console.log("SERVER START OK 🔥");
 
 // 🔥 CONEXIÓN A DB
 const pool = new Pool({
@@ -21,7 +18,7 @@ app.get("/", async (req, res) => {
 });
 
 // ─────────────────────────────────────────────
-// 🔥 REGISTER (FIX + DEBUG REAL)
+// 🔥 REGISTER
 // ─────────────────────────────────────────────
 app.post("/register", async (req, res) => {
   const { email, password } = req.body as any;
@@ -34,8 +31,6 @@ app.post("/register", async (req, res) => {
   }
 
   try {
-    console.log("INTENTANDO CREAR USUARIO:", email);
-
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const result = await pool.query(
@@ -43,19 +38,16 @@ app.post("/register", async (req, res) => {
       [email, hashedPassword]
     );
 
-    console.log("USUARIO CREADO:", result.rows[0]);
-
     return res.json({
       ok: true,
       user: result.rows[0],
     });
-
   } catch (err: any) {
-    console.error("🔥 ERROR REAL DB:", err);
+    console.error("ERROR REGISTER:", err);
 
     return res.status(500).json({
       ok: false,
-      error: err.message, // 👈 AHORA VEMOS EL ERROR REAL
+      error: err.message,
     });
   }
 });
@@ -63,8 +55,6 @@ app.post("/register", async (req, res) => {
 // ─────────────────────────────────────────────
 // 🔥 LOGIN
 // ─────────────────────────────────────────────
-console.log("LOGIN ROUTE ACTIVA 🔥");
-
 app.post("/login", async (req, res) => {
   const { email, password } = req.body as any;
 
@@ -113,9 +103,8 @@ app.post("/login", async (req, res) => {
         email: user.email,
       },
     });
-
   } catch (err: any) {
-    console.error("🔥 ERROR LOGIN:", err);
+    console.error("ERROR LOGIN:", err);
 
     return res.status(500).json({
       ok: false,
@@ -125,75 +114,10 @@ app.post("/login", async (req, res) => {
 });
 
 // ─────────────────────────────────────────────
-// 🔐 MIDDLEWARE AUTH
-// ─────────────────────────────────────────────
-function authMiddleware(req: any, res: any, next: any) {
-  try {
-    const authHeader = req.headers.authorization;
-
-    if (!authHeader) {
-      return res.status(401).json({ error: "No token" });
-    }
-
-    const token = authHeader.split(" ")[1];
-
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET || "dev_secret"
-    );
-
-    req.user = decoded;
-
-    next();
-  } catch (err) {
-    return res.status(401).json({ error: "Token inválido" });
-  }
-}
-
-// ─────────────────────────────────────────────
-// 🔒 RUTA PROTEGIDA
-// ─────────────────────────────────────────────
-app.get("/me", authMiddleware, async (req: any, res) => {
-  return res.json({
-    ok: true,
-    user: req.user,
-  });
-});
-
-// ─────────────────────────────────────────────
 // 🚀 START SERVER
 // ─────────────────────────────────────────────
-const rawPort = process.env["PORT"];
+const port = Number(process.env.PORT || 8080);
 
-if (!rawPort) {
-  throw new Error("PORT environment variable is required");
-}
-
-const port = Number(rawPort);
-
-app.listen(port, (err: any) => {
-  if (err) {
-    logger.error({ err }, "Error listening on port");
-    process.exit(1);
-  }
-
-  logger.info({ port }, "Server listening");
-
-  const SWEEP_INTERVAL_MS = 90_000;
-
-  const runSweep = async () => {
-    try {
-      await sweepExpiredBatches();
-    } catch (err) {
-      logger.error({ err }, "background expiration sweep failed");
-    }
-  };
-
-  void runSweep();
-  setInterval(() => void runSweep(), SWEEP_INTERVAL_MS);
-
-  logger.info(
-    { intervalMs: SWEEP_INTERVAL_MS },
-    "background expiration sweep scheduled"
-  );
+app.listen(port, () => {
+  console.log("Server listening on port", port);
 });
