@@ -1,4 +1,4 @@
-import app from "./app";
+import app from "./app.js";
 import { Pool } from "pg";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
