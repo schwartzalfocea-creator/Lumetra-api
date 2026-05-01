@@ -5,7 +5,7 @@ import app from "./app";
 import { logger } from "./lib/logger";
 import { sweepExpiredBatches } from "./lib/operations/confirmer";
 import { Pool } from "pg";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 // 🔥 CONEXIÓN A DB
