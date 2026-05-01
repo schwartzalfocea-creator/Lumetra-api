@@ -5,17 +5,12 @@ import jwt from "jsonwebtoken";
 
 const { Pool } = pkg;
 
-// 🔥 CONEXIÓN FINAL CORRECTA
+// 🔥 CONEXIÓN DEFINITIVA (DIRECTA SUPABASE)
 const pool = new Pool({
-  host: "aws-0-us-east-1.pooler.supabase.com",
-  port: 6543,
-  user: "postgres.piiazllngkaduspmshnq",
-  password: "Bfo2rpUjm6Xa4Oyk",
-  database: "postgres",
+  connectionString: "postgresql://postgres:Bfo2rpUjm6Xa4Oyk@db.piiazllngkaduspmshnq.supabase.co:5432/postgres",
   ssl: {
     rejectUnauthorized: false,
   },
-  options: "-c search_path=public",
 });
 
 // TEST
@@ -47,7 +42,6 @@ app.post("/register", async (req, res) => {
   } catch (err: any) {
     console.error("🔥 ERROR COMPLETO:", err);
 
-    // 👇 DEVUELVE TODO EL ERROR (CLAVE PARA DEBUG)
     res.status(500).json({
       ok: false,
       error: err,
