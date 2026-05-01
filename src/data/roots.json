@@ -1,0 +1,512 @@
+{
+  "modes": {
+    "MAI!": {
+      "label": "urgent / critical / emergency",
+      "priority": "CRITICAL",
+      "department": "Escalation",
+      "keywords": {
+        "en": ["urgent", "emergency", "critical", "asap", "immediately", "help now", "right now", "danger"],
+        "es": ["urgente", "emergencia", "crítico", "ya", "inmediatamente", "ahora mismo", "ayuda ya", "peligro"],
+        "pt": ["urgente", "emergência", "crítico", "agora", "imediatamente", "perigo", "socorro"],
+        "fr": ["urgent", "urgence", "critique", "immédiatement", "tout de suite", "danger"]
+      }
+    },
+    "KO?": {
+      "label": "question / consultation / triage",
+      "priority": "LOW",
+      "department": "Support",
+      "keywords": {
+        "en": ["how", "what", "when", "where", "why", "which", "can i", "could i", "is it possible", "question"],
+        "es": ["cómo", "como", "qué", "que", "cuándo", "cuando", "dónde", "donde", "por qué", "porque", "puedo", "es posible", "pregunta"],
+        "pt": ["como", "o que", "quando", "onde", "por que", "porque", "posso", "é possível", "pergunta"],
+        "fr": ["comment", "quoi", "quand", "où", "pourquoi", "puis-je", "est-il possible", "question"]
+      }
+    },
+    "SO:": {
+      "label": "emotional / social / human relationship",
+      "priority": "MEDIUM",
+      "department": "Support",
+      "keywords": {
+        "en": ["angry", "frustrated", "sad", "disappointed", "love", "hate", "feel", "rude", "polite"],
+        "es": ["enojado", "frustrado", "triste", "decepcionado", "amo", "odio", "siento", "grosero"],
+        "pt": ["bravo", "frustrado", "triste", "decepcionado", "amo", "odeio", "sinto", "rude"],
+        "fr": ["en colère", "frustré", "triste", "déçu", "aime", "déteste", "ressens", "impoli"]
+      }
+    },
+    "TEK:": {
+      "label": "technical / infrastructure / system issue",
+      "priority": "MEDIUM",
+      "department": "Support",
+      "keywords": {
+        "en": ["bug", "error", "crash", "broken", "not working", "doesn't work", "down", "offline", "server", "api", "system"],
+        "es": ["error", "falla", "no funciona", "no anda", "caído", "servidor", "sistema", "roto"],
+        "pt": ["erro", "falha", "não funciona", "fora do ar", "servidor", "sistema", "quebrado"],
+        "fr": ["bug", "erreur", "panne", "ne fonctionne pas", "en panne", "serveur", "système", "cassé"]
+      }
+    },
+    "YU:": {
+      "label": "finance / business / payment / commercial",
+      "priority": "MEDIUM",
+      "department": "Finance",
+      "keywords": {
+        "en": ["payment", "charge", "charged", "billing", "invoice", "money", "refund", "subscription", "fee", "price", "cost"],
+        "es": ["pago", "cobro", "cobraron", "factura", "facturación", "dinero", "reembolso", "suscripción", "tarifa", "precio"],
+        "pt": ["pagamento", "cobrança", "cobraram", "fatura", "dinheiro", "reembolso", "assinatura", "taxa", "preço"],
+        "fr": ["paiement", "frais", "facturation", "facture", "argent", "remboursement", "abonnement", "tarif", "prix"]
+      }
+    },
+    "OP:": {
+      "label": "logistics / shipping / operations",
+      "priority": "MEDIUM",
+      "department": "Logistics",
+      "keywords": {
+        "en": ["package", "shipment", "delivery", "shipping", "tracking", "courier", "warehouse", "order arrived"],
+        "es": ["paquete", "envío", "entrega", "rastreo", "mensajería", "almacén", "llegó"],
+        "pt": ["pacote", "envio", "entrega", "rastreamento", "encomenda", "armazém", "chegou"],
+        "fr": ["colis", "livraison", "expédition", "suivi", "courrier", "entrepôt", "arrivé"]
+      }
+    },
+    "SEC:": {
+      "label": "security / fraud / breach",
+      "priority": "HIGH",
+      "department": "Security",
+      "keywords": {
+        "en": ["hacked", "fraud", "phishing", "stolen", "compromised", "security breach", "data breach", "account breach", "system breach", "unauthorized", "suspicious", "scam", "identity theft"],
+        "es": ["hackeado", "fraude", "phishing", "robado", "comprometido", "brecha de seguridad", "brecha de datos", "no autorizado", "sospechoso", "estafa", "robo de identidad"],
+        "pt": ["hackeado", "fraude", "phishing", "roubado", "comprometido", "violação de segurança", "violação de dados", "não autorizado", "suspeito", "golpe"],
+        "fr": ["piraté", "fraude", "hameçonnage", "volé", "compromis", "violation de sécurité", "violation de données", "non autorisé", "suspect", "arnaque"]
+      }
+    },
+    "LEG:": {
+      "label": "legal / compliance / contractual",
+      "priority": "HIGH",
+      "department": "Legal",
+      "keywords": {
+        "en": [
+          "lawyer", "lawsuit", "sue", "suing", "sued", "legal action", "regulator", "compliance",
+          "contract violation", "subpoena", "court", "dispute", "disputes", "disputing",
+          "litigation", "litigate", "claim", "claims", "claiming", "settlement", "settle",
+          "attorney", "legal team", "legal matter", "legal issue", "legal advice",
+          "damages", "liability", "liable", "negligence", "arbitration", "mediation",
+          "rights violation", "breach of contract", "class action", "cease and desist",
+          "consumer rights", "legal rights", "injunction", "court order"
+        ],
+        "es": [
+          "abogado", "demanda", "demandar", "acción legal", "regulador", "cumplimiento",
+          "violación de contrato", "tribunal", "disputa", "disputas", "litigación", "litigio",
+          "reclamación", "acuerdo", "arreglo", "equipo legal", "asunto legal", "daños",
+          "arbitraje", "mediación", "derechos del consumidor", "asesoramiento legal",
+          "responsabilidad", "negligencia", "incumplimiento", "acción colectiva"
+        ],
+        "pt": [
+          "advogado", "processo", "processar", "ação legal", "regulador", "conformidade",
+          "tribunal", "disputa", "disputas", "litigação", "litígio", "reivindicação",
+          "acordo", "equipe jurídica", "questão legal", "assessoria jurídica",
+          "danos", "arbitragem", "mediação", "direitos do consumidor",
+          "responsabilidade", "negligência", "descumprimento", "ação coletiva"
+        ],
+        "fr": [
+          "avocat", "procès", "poursuivre", "action en justice", "régulateur", "conformité",
+          "tribunal", "litige", "différend", "réclamation", "règlement",
+          "équipe juridique", "question juridique", "conseil juridique",
+          "dommages", "arbitrage", "médiation", "droits du consommateur",
+          "responsabilité", "négligence", "action collective", "injonction"
+        ]
+      }
+    },
+    "MED:": {
+      "label": "medical / health / clinical",
+      "priority": "HIGH",
+      "department": "Medical",
+      "keywords": {
+        "en": [
+          "pain", "sick", "doctor", "hospital", "medicine", "fever", "bleeding", "injury", "ambulance",
+          "prescription", "prescribed", "medication", "medications", "drug",
+          "symptom", "symptoms", "nausea", "dizziness", "fatigue", "headache", "rash",
+          "treatment", "therapy", "clinic", "nurse", "healthcare", "health care",
+          "patient", "side effect", "side effects", "allergy", "allergic", "allergic reaction",
+          "medical advice", "health issue", "medical assistance", "injured", "wound",
+          "diagnosis", "diagnose", "appointment", "medical appointment", "specialist",
+          "malpractice", "medical malpractice", "healthcare negligence", "wrongful treatment",
+          "misdiagnosis", "clinical negligence", "medical negligence"
+        ],
+        "es": [
+          "dolor", "enfermo", "médico", "doctor", "hospital", "medicina", "fiebre",
+          "sangrado", "lesión", "ambulancia", "prescripción", "receta", "medicamento",
+          "medicamentos", "síntoma", "síntomas", "náuseas", "mareo", "fatiga",
+          "tratamiento", "terapia", "clínica", "enfermera", "enfermero", "paciente",
+          "efecto secundario", "alergia", "alérgico", "reacción alérgica",
+          "asistencia médica", "herida", "diagnóstico", "cita médica", "especialista"
+        ],
+        "pt": [
+          "dor", "doente", "médico", "hospital", "remédio", "febre", "sangramento",
+          "lesão", "ambulância", "prescrição", "receita", "medicamento", "medicamentos",
+          "sintoma", "sintomas", "náusea", "tontura", "fadiga", "dor de cabeça",
+          "tratamento", "terapia", "clínica", "enfermeira", "enfermeiro", "paciente",
+          "efeito colateral", "alergia", "alérgico", "reação alérgica",
+          "assistência médica", "ferida", "diagnóstico", "consulta médica", "especialista"
+        ],
+        "fr": [
+          "douleur", "malade", "médecin", "hôpital", "médicament", "fièvre",
+          "saignement", "blessure", "ambulance", "ordonnance", "prescrit",
+          "médicaments", "symptôme", "symptômes", "nausée", "vertige", "fatigue",
+          "traitement", "thérapie", "clinique", "infirmière", "infirmier", "patient",
+          "effet secondaire", "allergie", "allergique", "réaction allergique",
+          "assistance médicale", "diagnostic", "rendez-vous médical", "spécialiste"
+        ]
+      }
+    }
+  },
+  "modifiers": {
+    "-SU": {
+      "meaning": "more / increase / high / urgent / strong",
+      "keywords": {
+        "en": ["more", "increase", "higher", "stronger", "very", "extremely"],
+        "es": ["más", "mayor", "aumentar", "muy", "extremadamente"],
+        "pt": ["mais", "maior", "aumentar", "muito", "extremamente"],
+        "fr": ["plus", "augmenter", "très", "extrêmement"]
+      }
+    },
+    "-BA": {
+      "meaning": "less / decrease / low / weak",
+      "keywords": {
+        "en": ["less", "decrease", "lower", "weaker", "barely"],
+        "es": ["menos", "menor", "disminuir", "débil", "apenas"],
+        "pt": ["menos", "menor", "diminuir", "fraco", "apenas"],
+        "fr": ["moins", "diminuer", "faible", "à peine"]
+      }
+    },
+    "-OLO": {
+      "meaning": "total / complete / all",
+      "keywords": {
+        "en": ["all", "every", "complete", "total", "entire", "everything"],
+        "es": ["todo", "todos", "completo", "total", "entero"],
+        "pt": ["todo", "todos", "completo", "total", "inteiro"],
+        "fr": ["tout", "tous", "complet", "total", "entier"]
+      }
+    },
+    "-PAR": {
+      "meaning": "partial / some / limited",
+      "keywords": {
+        "en": ["some", "partial", "few", "limited", "part of"],
+        "es": ["algunos", "parcial", "pocos", "limitado", "parte de"],
+        "pt": ["alguns", "parcial", "poucos", "limitado", "parte de"],
+        "fr": ["quelques", "partiel", "peu", "limité", "partie de"]
+      }
+    }
+  },
+  "time": {
+    "PASA": {
+      "meaning": "past",
+      "keywords": {
+        "en": ["yesterday", "last week", "last month", "ago", "before", "previously", "was", "were", "had"],
+        "es": ["ayer", "semana pasada", "mes pasado", "antes", "anteriormente", "fue", "era", "tenía", "hace"],
+        "pt": ["ontem", "semana passada", "mês passado", "antes", "anteriormente", "foi", "era", "tinha"],
+        "fr": ["hier", "semaine dernière", "mois dernier", "avant", "auparavant", "était"]
+      }
+    },
+    "PRES": {
+      "meaning": "now / present",
+      "keywords": {
+        "en": ["now", "today", "currently", "right now", "at the moment", "is", "are"],
+        "es": ["ahora", "hoy", "actualmente", "en este momento", "es", "son", "está"],
+        "pt": ["agora", "hoje", "atualmente", "neste momento", "é", "são", "está"],
+        "fr": ["maintenant", "aujourd'hui", "actuellement", "en ce moment", "est", "sont"]
+      }
+    },
+    "FUTA": {
+      "meaning": "future",
+      "keywords": {
+        "en": ["tomorrow", "next week", "next month", "will", "soon", "later", "going to"],
+        "es": ["mañana", "próxima semana", "próximo mes", "será", "pronto", "luego", "voy a"],
+        "pt": ["amanhã", "próxima semana", "próximo mês", "será", "logo", "depois", "vou"],
+        "fr": ["demain", "semaine prochaine", "mois prochain", "sera", "bientôt", "plus tard"]
+      }
+    }
+  },
+  "objects": {
+    "_G": "digital / software / data / account",
+    "_P": "physical / product / package / hardware",
+    "_T": "network / flow / traffic / energy"
+  },
+  "subjects": {
+    "MI": {
+      "meaning": "me / my / myself",
+      "keywords": {
+        "en": ["i", "me", "my", "mine", "myself"],
+        "es": ["yo", "me", "mi", "mío", "mía"],
+        "pt": ["eu", "me", "meu", "minha"],
+        "fr": ["je", "moi", "mon", "ma", "mes"]
+      }
+    },
+    "TU": {
+      "meaning": "you / your",
+      "keywords": {
+        "en": ["you", "your", "yours"],
+        "es": ["tú", "tu", "tus", "usted", "su"],
+        "pt": ["você", "seu", "sua", "voce"],
+        "fr": ["vous", "votre", "vos", "tu", "ton", "ta"]
+      }
+    },
+    "KA": {
+      "meaning": "person / company / thing / generic entity",
+      "keywords": {
+        "en": ["company", "person", "someone", "they", "the"],
+        "es": ["empresa", "persona", "alguien", "ellos"],
+        "pt": ["empresa", "pessoa", "alguém", "eles"],
+        "fr": ["entreprise", "personne", "quelqu'un", "ils"]
+      }
+    },
+    "NOS": {
+      "meaning": "we / us",
+      "keywords": {
+        "en": ["we", "us", "our"],
+        "es": ["nosotros", "nos", "nuestro"],
+        "pt": ["nós", "nosso"],
+        "fr": ["nous", "notre", "nos"]
+      }
+    }
+  },
+  "states": {
+    "BO": { "meaning": "good / success / positive", "keywords": { "en": ["good", "great", "success", "yes", "ok", "fine"], "es": ["bueno", "bien", "éxito", "sí"], "pt": ["bom", "bem", "sucesso", "sim"], "fr": ["bon", "bien", "succès", "oui"] } },
+    "MA": { "meaning": "bad / failed / broken / negative", "keywords": { "en": ["bad", "broken", "failed", "wrong", "no", "doesn't", "didn't", "won't"], "es": ["mal", "malo", "roto", "falló", "no"], "pt": ["mau", "ruim", "quebrado", "falhou", "não"], "fr": ["mauvais", "cassé", "échoué", "non"] } },
+    "NIL": { "meaning": "none / zero / empty / missing", "keywords": { "en": ["none", "nothing", "empty", "missing", "never", "no longer", "did not arrive", "never arrived", "not arrived"], "es": ["nada", "vacío", "falta", "nunca", "no llegó", "no llegó nunca"], "pt": ["nada", "vazio", "faltando", "nunca", "não chegou"], "fr": ["rien", "vide", "manquant", "jamais", "n'est pas arrivé"] } },
+    "ES": { "meaning": "exists / is / active", "keywords": { "en": ["exists", "active", "present"], "es": ["existe", "activo", "presente"], "pt": ["existe", "ativo", "presente"], "fr": ["existe", "actif", "présent"] } },
+    "OK": { "meaning": "confirmed / accepted / done", "keywords": { "en": ["confirmed", "done", "accepted", "approved"], "es": ["confirmado", "hecho", "aceptado", "aprobado"], "pt": ["confirmado", "feito", "aceito", "aprovado"], "fr": ["confirmé", "fait", "accepté", "approuvé"] } }
+  },
+  "vectors": {
+    "VA": { "meaning": "go / send / move / transfer", "keywords": { "en": ["send", "go", "move", "transfer", "ship"], "es": ["enviar", "ir", "mover", "transferir"], "pt": ["enviar", "ir", "mover", "transferir"], "fr": ["envoyer", "aller", "déplacer", "transférer"] } },
+    "VEN": { "meaning": "come / bring / receive", "keywords": { "en": ["come", "receive", "bring", "arrived", "arrive"], "es": ["venir", "recibir", "traer", "llegó", "llegar"], "pt": ["vir", "receber", "trazer", "chegou", "chegar"], "fr": ["venir", "recevoir", "apporter", "arrivé"] } },
+    "UP": { "meaning": "increase / rise / upgrade / double", "keywords": { "en": ["double", "twice", "doubled", "increased", "upgraded"], "es": ["doble", "doblado", "dos veces", "aumentado", "duplicado"], "pt": ["dobro", "duas vezes", "dobrado", "aumentado", "duplicado"], "fr": ["double", "doublé", "deux fois", "augmenté"] } },
+    "DO": { "meaning": "lower / reduce / downgrade", "keywords": { "en": ["reduced", "lower", "downgraded", "dropped"], "es": ["reducido", "menor", "bajado"], "pt": ["reduzido", "menor", "diminuído"], "fr": ["réduit", "abaissé", "diminué"] } },
+    "RE": { "meaning": "repeat / return / again", "keywords": { "en": ["again", "repeat", "return", "retry"], "es": ["otra vez", "repetir", "devolver", "reintentar"], "pt": ["de novo", "repetir", "devolver"], "fr": ["encore", "répéter", "retourner"] } }
+  },
+  "intents": {
+    "VO": { "meaning": "want / need / request", "keywords": { "en": ["want", "need", "request", "would like"], "es": ["quiero", "necesito", "solicito", "quisiera"], "pt": ["quero", "preciso", "solicito", "gostaria"], "fr": ["veux", "besoin", "demande", "voudrais"] } },
+    "DEB": { "meaning": "obligation / must / debt", "keywords": { "en": ["must", "have to", "should", "owe"], "es": ["debo", "tengo que", "debería"], "pt": ["devo", "tenho que", "deveria"], "fr": ["dois", "il faut", "devrais"] } },
+    "POS": { "meaning": "can / possible / ability", "keywords": { "en": ["can", "could", "possible", "able"], "es": ["puedo", "podría", "posible"], "pt": ["posso", "poderia", "possível"], "fr": ["peux", "pourrais", "possible"] } }
+  },
+  "finance": {
+    "VAL": { "meaning": "value / price / money amount", "keywords": { "en": ["price", "value", "amount", "cost"], "es": ["precio", "valor", "monto", "costo"], "pt": ["preço", "valor", "quantia", "custo"], "fr": ["prix", "valeur", "montant", "coût"] } },
+    "MON": { "meaning": "currency / cash / funds", "keywords": { "en": ["money", "cash", "funds"], "es": ["dinero", "efectivo", "fondos"], "pt": ["dinheiro", "fundos"], "fr": ["argent", "fonds"] } },
+    "BAN": { "meaning": "bank / banking", "keywords": { "en": ["bank", "banking"], "es": ["banco", "bancario"], "pt": ["banco", "bancário"], "fr": ["banque", "bancaire"] } },
+    "KRE": { "meaning": "credit / loan", "keywords": { "en": ["credit", "loan", "credit card"], "es": ["crédito", "préstamo", "tarjeta de crédito"], "pt": ["crédito", "empréstimo", "cartão de crédito"], "fr": ["crédit", "prêt", "carte de crédit"] } },
+    "GAN": { "meaning": "gain / profit", "keywords": { "en": ["profit", "gain", "earnings"], "es": ["ganancia", "beneficio"], "pt": ["lucro", "ganho"], "fr": ["profit", "gain"] } },
+    "PER": { "meaning": "loss / losing", "keywords": { "en": ["loss", "losing", "lost money"], "es": ["pérdida", "perdiendo"], "pt": ["perda", "perdendo"], "fr": ["perte", "perdre"] } },
+    "TRI": { "meaning": "tax / taxation", "keywords": { "en": ["tax", "taxation", "vat", "sales tax"], "es": ["impuesto", "iva"], "pt": ["imposto", "tributo"], "fr": ["taxe", "impôt", "tva"] } }
+  },
+  "contract": {
+    "PAK": {
+      "meaning": "order / agreement / package",
+      "keywords": {
+        "en": ["package", "order", "agreement", "parcel"],
+        "es": ["paquete", "pedido", "acuerdo"],
+        "pt": ["pacote", "pedido", "acordo", "encomenda"],
+        "fr": ["colis", "commande", "accord"]
+      }
+    },
+    "SIGN": { "meaning": "sign / signature", "keywords": { "en": ["sign", "signature", "signed"], "es": ["firma", "firmar"], "pt": ["assinatura", "assinar"], "fr": ["signature", "signer"] } },
+    "VERI": { "meaning": "verify / validate / audit check", "keywords": { "en": ["verify", "validate", "verification"], "es": ["verificar", "validar"], "pt": ["verificar", "validar"], "fr": ["vérifier", "valider"] } }
+  },
+  "logistics": {
+    "STO": { "meaning": "stock / inventory", "keywords": { "en": ["stock", "inventory", "out of stock"], "es": ["stock", "inventario", "sin stock"], "pt": ["estoque", "inventário"], "fr": ["stock", "inventaire"] } },
+    "CAR": { "meaning": "cargo / truck / shipment load", "keywords": { "en": ["cargo", "truck", "shipment"], "es": ["carga", "camión", "envío"], "pt": ["carga", "caminhão", "envio"], "fr": ["cargo", "camion", "expédition"] } },
+    "ALM": { "meaning": "warehouse / storage", "keywords": { "en": ["warehouse", "storage"], "es": ["almacén", "depósito"], "pt": ["armazém", "depósito"], "fr": ["entrepôt", "stockage"] } }
+  },
+  "data": {
+    "LOG": { "meaning": "data / file / record / logic", "keywords": { "en": ["data", "file", "record", "log"], "es": ["dato", "archivo", "registro"], "pt": ["dado", "arquivo", "registro"], "fr": ["donnée", "fichier", "enregistrement"] } },
+    "KOD": { "meaning": "code / password / key", "keywords": { "en": ["password", "code", "key", "login"], "es": ["contraseña", "código", "clave", "inicio de sesión"], "pt": ["senha", "código", "chave", "login"], "fr": ["mot de passe", "code", "clé", "connexion"] } },
+    "APP": { "meaning": "application / software", "keywords": { "en": ["app", "application", "software"], "es": ["aplicación", "software"], "pt": ["aplicativo", "software"], "fr": ["application", "logiciel"] } }
+  },
+  "security": {
+    "FRAU": { "meaning": "fraud / scam", "keywords": { "en": ["fraud", "scam", "fraudulent"], "es": ["fraude", "estafa"], "pt": ["fraude", "golpe"], "fr": ["fraude", "arnaque"] } },
+    "PHIS": { "meaning": "phishing / social attack", "keywords": { "en": ["phishing", "phish"], "es": ["phishing", "suplantación"], "pt": ["phishing"], "fr": ["hameçonnage", "phishing"] } },
+    "HACK": { "meaning": "attack / compromise / intrusion", "keywords": { "en": ["hacked", "hack", "hacking", "compromised", "security breach", "data breach", "account breach", "account breached", "system breached", "systems breached", "intrusion", "attacked", "cyberattack"], "es": ["hackeado", "hackear", "comprometido", "brecha de seguridad", "ataque cibernético", "intrusión"], "pt": ["hackeado", "hackear", "comprometido", "violação de segurança", "ataque cibernético", "intrusão"], "fr": ["piraté", "pirater", "compromis", "violation de sécurité", "cyberattaque", "intrusion"] } },
+    "LOCK": { "meaning": "lock / block access / freeze", "keywords": { "en": ["locked", "lockout", "blocked", "frozen"], "es": ["bloqueado", "congelado"], "pt": ["bloqueado", "congelado"], "fr": ["verrouillé", "bloqué", "gelé"] } },
+    "ID": { "meaning": "identity / identification", "keywords": { "en": ["identity", "identification", "id"], "es": ["identidad", "identificación"], "pt": ["identidade", "identificação"], "fr": ["identité", "identification"] } }
+  },
+  "health": {
+    "DOR": {
+      "meaning": "pain / ache",
+      "keywords": {
+        "en": ["pain", "ache", "hurt", "hurts", "painful"],
+        "es": ["dolor", "duele", "doloroso"],
+        "pt": ["dor", "dói", "doloroso"],
+        "fr": ["douleur", "mal", "douloureux"]
+      }
+    },
+    "TER": {
+      "meaning": "fever / high temperature",
+      "keywords": {
+        "en": ["fever", "high temperature", "temperature"],
+        "es": ["fiebre", "temperatura alta"],
+        "pt": ["febre", "temperatura alta"],
+        "fr": ["fièvre", "température élevée"]
+      }
+    },
+    "MEDR": {
+      "meaning": "doctor / physician / medical professional",
+      "keywords": {
+        "en": ["doctor", "physician", "general practitioner", "gp", "specialist"],
+        "es": ["doctor", "médico", "especialista"],
+        "pt": ["doutor", "médico", "especialista"],
+        "fr": ["docteur", "médecin", "généraliste", "spécialiste"]
+      }
+    },
+    "HOS": {
+      "meaning": "hospital / emergency room",
+      "keywords": {
+        "en": ["hospital", "er", "emergency room", "icu", "ward"],
+        "es": ["hospital", "urgencias", "sala de emergencias"],
+        "pt": ["hospital", "pronto-socorro", "emergência"],
+        "fr": ["hôpital", "urgences", "salle d'urgence"]
+      }
+    },
+    "PRESC": {
+      "meaning": "prescription / medication / drug / dose",
+      "keywords": {
+        "en": ["prescription", "prescribed", "medication", "medications", "medicine", "drug", "drugs", "dosage", "dose", "pill", "pills", "tablet", "tablets", "capsule"],
+        "es": ["prescripción", "receta", "medicamento", "medicamentos", "medicina", "droga", "dosis", "pastilla", "pastillas", "tableta", "cápsula"],
+        "pt": ["prescrição", "receita", "medicamento", "medicamentos", "remédio", "dosagem", "dose", "comprimido", "comprimidos", "cápsula"],
+        "fr": ["ordonnance", "prescrit", "médicament", "médicaments", "médicine", "dosage", "dose", "comprimé", "comprimés", "cachet", "gélule"]
+      }
+    },
+    "SYM": {
+      "meaning": "symptoms / signs / health indicators",
+      "keywords": {
+        "en": ["symptom", "symptoms", "nausea", "vomiting", "dizziness", "dizzy", "fatigue", "tired", "headache", "rash", "swelling", "shortness of breath", "chest pain", "bleeding"],
+        "es": ["síntoma", "síntomas", "náuseas", "vómitos", "mareo", "fatiga", "cansancio", "dolor de cabeza", "sarpullido", "hinchazón", "dificultad para respirar"],
+        "pt": ["sintoma", "sintomas", "náusea", "vômito", "tontura", "fadiga", "cansaço", "dor de cabeça", "erupção", "inchaço", "falta de ar", "sangramento"],
+        "fr": ["symptôme", "symptômes", "nausée", "vomissement", "vertige", "fatigue", "maux de tête", "éruption", "gonflement", "essoufflement", "saignement"]
+      }
+    },
+    "TRT": {
+      "meaning": "treatment / therapy / care plan / malpractice",
+      "keywords": {
+        "en": ["treatment", "therapy", "therapist", "procedure", "rehabilitation", "rehab", "medical care", "care plan", "health care", "healthcare", "care", "care provider", "malpractice", "medical malpractice", "misdiagnosis", "wrongful treatment", "clinical negligence", "medical negligence", "healthcare negligence"],
+        "es": ["tratamiento", "terapia", "terapeuta", "procedimiento", "rehabilitación", "cuidado médico", "plan de cuidado", "atención médica", "proveedor de salud", "mala praxis", "negligencia médica", "mal diagnóstico"],
+        "pt": ["tratamento", "terapia", "terapeuta", "procedimento", "reabilitação", "cuidado médico", "plano de cuidado", "atenção médica", "provedor de saúde", "má prática médica", "negligência médica", "diagnóstico errado"],
+        "fr": ["traitement", "thérapie", "thérapeute", "procédure", "réhabilitation", "soins médicaux", "plan de soin", "prestataire de soins", "faute médicale", "négligence médicale", "erreur de diagnostic"]
+      }
+    },
+    "INJ": {
+      "meaning": "injury / wound / trauma / accident",
+      "keywords": {
+        "en": ["injury", "injured", "wound", "wounded", "fracture", "broken bone", "bruise", "bruised", "sprain", "sprained", "trauma", "accident", "hurt", "cut"],
+        "es": ["lesión", "lesionado", "herida", "herido", "fractura", "hueso roto", "moretón", "esguince", "trauma", "accidente"],
+        "pt": ["lesão", "lesionado", "ferida", "ferido", "fratura", "osso quebrado", "hematoma", "entorse", "trauma", "acidente", "machucado"],
+        "fr": ["blessure", "blessé", "fracture", "os cassé", "ecchymose", "entorse", "traumatisme", "accident", "coupure"]
+      }
+    },
+    "CLI": {
+      "meaning": "clinic / nurse / nursing / caregiver",
+      "keywords": {
+        "en": ["clinic", "nurse", "nursing", "caregiver", "care giver", "appointment", "medical appointment", "check-up", "checkup"],
+        "es": ["clínica", "enfermera", "enfermero", "cuidador", "cita médica", "chequeo", "revisión médica"],
+        "pt": ["clínica", "enfermeira", "enfermeiro", "cuidador", "consulta médica", "exame médico", "check-up"],
+        "fr": ["clinique", "infirmière", "infirmier", "soignant", "rendez-vous médical", "bilan de santé", "visite médicale"]
+      }
+    },
+    "ALR": {
+      "meaning": "allergy / adverse reaction / side effect / intolerance",
+      "keywords": {
+        "en": ["allergy", "allergic", "allergic reaction", "side effect", "side effects", "adverse reaction", "reaction", "intolerance", "sensitive", "sensitivity"],
+        "es": ["alergia", "alérgico", "reacción alérgica", "efecto secundario", "reacción adversa", "intolerancia", "sensibilidad"],
+        "pt": ["alergia", "alérgico", "reação alérgica", "efeito colateral", "efeitos colaterais", "reação adversa", "intolerância", "sensibilidade"],
+        "fr": ["allergie", "allergique", "réaction allergique", "effet secondaire", "effets secondaires", "réaction indésirable", "intolérance", "sensibilité"]
+      }
+    }
+  },
+  "legal": {
+    "DISP": {
+      "meaning": "dispute / disagreement / contest",
+      "keywords": {
+        "en": ["dispute", "disputes", "disputing", "disagreement", "contested", "contest", "contesting", "in dispute"],
+        "es": ["disputa", "disputas", "desacuerdo", "impugnar", "en disputa"],
+        "pt": ["disputa", "disputas", "desacordo", "contestar", "em disputa"],
+        "fr": ["litige", "différend", "contestation", "contester", "en litige"]
+      }
+    },
+    "LIT": {
+      "meaning": "litigation / court proceedings / lawsuit",
+      "keywords": {
+        "en": ["litigation", "litigate", "court case", "legal case", "lawsuit", "sue", "suing", "sued", "subpoena", "court order", "legal proceedings"],
+        "es": ["litigación", "litigio", "caso judicial", "demanda", "demandar", "demandado", "citación judicial", "procedimientos legales"],
+        "pt": ["litigação", "litígio", "caso judicial", "processo", "processar", "processado", "citação judicial", "procedimentos legais"],
+        "fr": ["litige judiciaire", "procès", "action en justice", "poursuivre", "assignation", "procédures judiciaires"]
+      }
+    },
+    "CLM": {
+      "meaning": "claim / formal demand / complaint",
+      "keywords": {
+        "en": ["claim", "claims", "claiming", "formal complaint", "formal claim", "demand letter", "legal claim", "file a claim"],
+        "es": ["reclamación", "reclamaciones", "reclamar", "queja formal", "reclamación formal", "reclamación legal"],
+        "pt": ["reivindicação", "reclamação", "reivindicar", "queixa formal", "reclamação formal", "reclamação legal"],
+        "fr": ["réclamation", "revendiquer", "plainte formelle", "réclamation formelle", "réclamation légale"]
+      }
+    },
+    "SETL": {
+      "meaning": "settlement / negotiation / mediation / arbitration",
+      "keywords": {
+        "en": ["settlement", "settle", "settling", "out of court", "negotiation", "negotiate", "mediation", "mediator", "arbitration", "arbitrator", "arbitrate"],
+        "es": ["acuerdo extrajudicial", "arreglo", "negociación", "mediación", "mediador", "arbitraje", "árbitro"],
+        "pt": ["acordo extrajudicial", "negociação", "mediação", "mediador", "arbitragem", "árbitro"],
+        "fr": ["règlement à l'amiable", "règlement", "négociation", "médiation", "médiateur", "arbitrage", "arbitre"]
+      }
+    },
+    "ATT": {
+      "meaning": "attorney / lawyer / legal counsel",
+      "keywords": {
+        "en": ["attorney", "lawyer", "solicitor", "barrister", "legal counsel", "legal representative", "legal team", "counsel", "law firm"],
+        "es": ["abogado", "abogada", "consejo legal", "representante legal", "equipo legal", "despacho de abogados"],
+        "pt": ["advogado", "advogada", "conselho jurídico", "representante legal", "equipe jurídica", "escritório de advocacia"],
+        "fr": ["avocat", "avocate", "conseil juridique", "représentant légal", "équipe juridique", "cabinet d'avocats"]
+      }
+    },
+    "LIAB": {
+      "meaning": "liability / damages / negligence",
+      "keywords": {
+        "en": ["liability", "liable", "damages", "legal damages", "damage award", "negligence", "negligent", "compensation claim", "personal injury claim"],
+        "es": ["responsabilidad", "responsable", "daños", "daños y perjuicios", "negligencia", "negligente", "reclamación por daños"],
+        "pt": ["responsabilidade", "responsável", "danos", "danos e prejuízos", "negligência", "negligente", "reclamação por danos"],
+        "fr": ["responsabilité", "responsable", "dommages", "dommages-intérêts", "négligence", "négligent", "réclamation pour dommages"]
+      }
+    },
+    "CONT": {
+      "meaning": "contract / breach of contract / terms violation",
+      "keywords": {
+        "en": ["contract", "breach of contract", "contract violation", "breach of terms", "terms violation", "violation of terms", "contractual", "contract dispute"],
+        "es": ["contrato", "incumplimiento de contrato", "violación de contrato", "violación de términos", "contractual", "disputa contractual"],
+        "pt": ["contrato", "violação de contrato", "descumprimento de contrato", "violação de termos", "contratual", "disputa contratual"],
+        "fr": ["contrat", "violation de contrat", "rupture de contrat", "violation des conditions", "contractuel", "litige contractuel"]
+      }
+    },
+    "RIG": {
+      "meaning": "rights / entitlement / legal protection / class action",
+      "keywords": {
+        "en": ["rights", "consumer rights", "legal rights", "entitled", "entitlement", "protected by law", "class action", "cease and desist", "injunction", "right to"],
+        "es": ["derechos", "derechos del consumidor", "derechos legales", "derecho a", "acción colectiva", "orden judicial"],
+        "pt": ["direitos", "direitos do consumidor", "direitos legais", "direito a", "ação coletiva", "ordem judicial"],
+        "fr": ["droits", "droits du consommateur", "droits légaux", "droit à", "action collective", "injonction", "ordonnance"]
+      }
+    },
+    "REG": {
+      "meaning": "regulator / compliance / authority",
+      "keywords": {
+        "en": ["regulator", "regulatory", "compliance", "non-compliance", "authority", "regulatory body", "watchdog", "ombudsman", "gdpr", "consumer protection"],
+        "es": ["regulador", "regulatorio", "cumplimiento", "incumplimiento", "autoridad", "defensor del consumidor", "protección al consumidor"],
+        "pt": ["regulador", "regulatório", "conformidade", "não conformidade", "autoridade", "defensor do consumidor", "proteção ao consumidor"],
+        "fr": ["régulateur", "réglementaire", "conformité", "non-conformité", "autorité", "médiateur", "protection du consommateur"]
+      }
+    }
+  },
+  "actions": {
+    "KOM": { "meaning": "buy / purchase", "keywords": { "en": ["buy", "purchase", "bought"], "es": ["comprar", "compré"], "pt": ["comprar", "comprei"], "fr": ["acheter", "acheté"] } },
+    "VEN_S": { "meaning": "sell", "keywords": { "en": ["sell", "sold", "selling"], "es": ["vender", "vendí"], "pt": ["vender", "vendi"], "fr": ["vendre", "vendu"] } },
+    "DAR": { "meaning": "give / deliver", "keywords": { "en": ["deliver", "delivered", "give"], "es": ["entregar", "entregado", "dar"], "pt": ["entregar", "entregue", "dar"], "fr": ["livrer", "livré", "donner"] } },
+    "TAK": { "meaning": "take / receive", "keywords": { "en": ["receive", "received", "take"], "es": ["recibir", "recibí", "tomar"], "pt": ["receber", "recebi", "pegar"], "fr": ["recevoir", "reçu", "prendre"] } },
+    "PER_A": { "meaning": "lose", "keywords": { "en": ["lost", "lose", "missing"], "es": ["perdido", "perder"], "pt": ["perdido", "perder"], "fr": ["perdu", "perdre"] } },
+    "ABRE": { "meaning": "open", "keywords": { "en": ["open", "opened"], "es": ["abrir", "abierto"], "pt": ["abrir", "aberto"], "fr": ["ouvrir", "ouvert"] } },
+    "CLO": { "meaning": "close", "keywords": { "en": ["close", "closed"], "es": ["cerrar", "cerrado"], "pt": ["fechar", "fechado"], "fr": ["fermer", "fermé"] } }
+  }
+}
