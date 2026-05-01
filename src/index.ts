@@ -5,9 +5,9 @@ import jwt from "jsonwebtoken";
 
 const { Pool } = pkg;
 
-// 🔥 CONEXIÓN DEFINITIVA (DIRECTA SUPABASE)
+// 🔥 CONEXIÓN FINAL (POOLER CORRECTO + EVITA IPv6)
 const pool = new Pool({
-  connectionString: "postgresql://postgres:Bfo2rpUjm6Xa4Oyk@db.piiazllngkaduspmshnq.supabase.co:5432/postgres",
+  connectionString: "postgresql://postgres.piiazllngkaduspmshnq:Bfo2rpUjm6Xa4Oyk@aws-0-us-east-1.pooler.supabase.com:6543/postgres",
   ssl: {
     rejectUnauthorized: false,
   },
