@@ -5,16 +5,17 @@ import jwt from "jsonwebtoken";
 
 const { Pool } = pkg;
 
-// 🔥 CONEXIÓN CORRECTA (SIN connectionString)
+// 🔥 CONEXIÓN FINAL CORRECTA
 const pool = new Pool({
   host: "aws-0-us-east-1.pooler.supabase.com",
   port: 6543,
-  user: "postgres.piiazllngkaduspmshnq",
+  user: "postgres", // ✅ CAMBIO CLAVE
   password: "Bfo2rpUjm6Xa4Oyk",
   database: "postgres",
   ssl: {
     rejectUnauthorized: false,
   },
+  options: "-c search_path=public", // ✅ CLAVE TAMBIÉN
 });
 
 // TEST
