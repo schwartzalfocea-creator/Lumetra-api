@@ -21,7 +21,7 @@ app.get("/", async (req, res) => {
 });
 
 // ─────────────────────────────────────────────
-// 🔥 REGISTER
+// 🔥 REGISTER (FIX + DEBUG REAL)
 // ─────────────────────────────────────────────
 app.post("/register", async (req, res) => {
   const { email, password } = req.body as any;
@@ -34,6 +34,8 @@ app.post("/register", async (req, res) => {
   }
 
   try {
+    console.log("INTENTANDO CREAR USUARIO:", email);
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const result = await pool.query(
@@ -41,23 +43,19 @@ app.post("/register", async (req, res) => {
       [email, hashedPassword]
     );
 
+    console.log("USUARIO CREADO:", result.rows[0]);
+
     return res.json({
       ok: true,
       user: result.rows[0],
     });
-  } catch (err: any) {
-    console.error(err);
 
-    if (err.code === "23505") {
-      return res.status(400).json({
-        ok: false,
-        error: "El usuario ya existe",
-      });
-    }
+  } catch (err: any) {
+    console.error("🔥 ERROR REAL DB:", err);
 
     return res.status(500).json({
       ok: false,
-      error: "Error creando usuario",
+      error: err.message, // 👈 AHORA VEMOS EL ERROR REAL
     });
   }
 });
@@ -115,18 +113,19 @@ app.post("/login", async (req, res) => {
         email: user.email,
       },
     });
-  } catch (err) {
-    console.error(err);
+
+  } catch (err: any) {
+    console.error("🔥 ERROR LOGIN:", err);
 
     return res.status(500).json({
       ok: false,
-      error: "Error en login",
+      error: err.message,
     });
   }
 });
 
 // ─────────────────────────────────────────────
-// 🔐 MIDDLEWARE AUTH (EXPRESS)
+// 🔐 MIDDLEWARE AUTH
 // ─────────────────────────────────────────────
 function authMiddleware(req: any, res: any, next: any) {
   try {
@@ -152,7 +151,7 @@ function authMiddleware(req: any, res: any, next: any) {
 }
 
 // ─────────────────────────────────────────────
-// 🔒 RUTA PROTEGIDA (CORRECTA)
+// 🔒 RUTA PROTEGIDA
 // ─────────────────────────────────────────────
 app.get("/me", authMiddleware, async (req: any, res) => {
   return res.json({
