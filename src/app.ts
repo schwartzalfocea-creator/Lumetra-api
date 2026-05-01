@@ -5,13 +5,9 @@ import { logger } from "./lib/logger";
 
 const app = express();
 
-// ✅ CORS CONFIGURADO CORRECTAMENTE
+// 🔥 CORS SIMPLE (EL QUE FUNCIONA SIEMPRE)
 app.use(cors({
-  origin: [
-    "http://localhost:3000",
-    "https://lumetra-frontend-dylizr6i3-schwartzalfocea-creators-projects.vercel.app"
-  ],
-  credentials: true,
+  origin: "*"
 }));
 
 app.use(
