@@ -9,13 +9,13 @@ const { Pool } = pkg;
 const pool = new Pool({
   host: "aws-0-us-east-1.pooler.supabase.com",
   port: 6543,
-  user: "postgres", // ✅ CAMBIO CLAVE
+  user: "postgres",
   password: "Bfo2rpUjm6Xa4Oyk",
   database: "postgres",
   ssl: {
     rejectUnauthorized: false,
   },
-  options: "-c search_path=public", // ✅ CLAVE TAMBIÉN
+  options: "-c search_path=public",
 });
 
 // TEST
@@ -43,12 +43,14 @@ app.post("/register", async (req, res) => {
     );
 
     res.json({ ok: true, user: result.rows[0] });
-  } catch (err: any) {
-    console.error("🔥 ERROR REAL:", err);
 
+  } catch (err: any) {
+    console.error("🔥 ERROR COMPLETO:", err);
+
+    // 👇 DEVUELVE TODO EL ERROR (CLAVE PARA DEBUG)
     res.status(500).json({
       ok: false,
-      error: err.message,
+      error: err,
     });
   }
 });
