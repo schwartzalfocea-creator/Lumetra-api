@@ -8,7 +8,10 @@ const { Pool } = pkg;
 const app = express();
 app.use(express.json());
 
-// ✅ CONEXIÓN CORRECTA
+// 🔐 SECRET (después lo movemos a .env)
+const JWT_SECRET = "SECRET_KEY";
+
+// ✅ CONEXIÓN DB
 const pool = new Pool({
   connectionString: "postgresql://postgres.piiazllngkaduspmshnq:Bfo2rpUjm6Xa4Oyk@aws-1-us-east-1.pooler.supabase.com:6543/postgres",
   ssl: {
@@ -17,10 +20,40 @@ const pool = new Pool({
   max: 1,
 });
 
+
+// 🔐 MIDDLEWARE AUTH
+const auth = (req, res, next) => {
+  try {
+    const header = req.headers.authorization;
+
+    if (!header) {
+      return res.status(401).json({
+        ok: false,
+        error: "No token",
+      });
+    }
+
+    const token = header.split(" ")[1];
+
+    const decoded = jwt.verify(token, JWT_SECRET);
+
+    req.user = decoded;
+
+    next();
+  } catch (err) {
+    return res.status(401).json({
+      ok: false,
+      error: "Token inválido",
+    });
+  }
+};
+
+
 // TEST
 app.get("/", (req, res) => {
   res.json({ message: "Lumetra funcionando 🚀" });
 });
+
 
 // REGISTER
 app.post("/register", async (req, res) => {
@@ -70,6 +103,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
+
 // LOGIN
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -100,7 +134,7 @@ app.post("/login", async (req, res) => {
 
     const token = jwt.sign(
       { id: user.id, email: user.email },
-      "SECRET_KEY",
+      JWT_SECRET,
       { expiresIn: "7d" }
     );
 
@@ -122,6 +156,16 @@ app.post("/login", async (req, res) => {
     });
   }
 });
+
+
+// 🔒 RUTA PROTEGIDA
+app.get("/me", auth, (req, res) => {
+  res.json({
+    ok: true,
+    user: req.user,
+  });
+});
+
 
 // START
 const port = process.env.PORT || 8080;
