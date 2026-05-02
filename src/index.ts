@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 
 const { Pool } = pkg;
 
-// ✅ POOLER CORRECTO + PGBOUNCER SAFE
+// 🔥 CONEXIÓN FINAL DEFINITIVA (SUPABASE + POOLER + RAILWAY)
 const pool = new Pool({
   connectionString: "postgresql://postgres.piiazllngkaduspmshnq:Bfo2rpUjm6Xa4Oyk@aws-0-us-east-1.pooler.supabase.com:6543/postgres",
   ssl: {
@@ -17,7 +17,7 @@ const pool = new Pool({
 
 // TEST
 app.get("/", (req, res) => {
-  res.json({ message: "CAMBIO TEST 123" });
+  res.json({ message: "Lumetra funcionando 🚀" });
 });
 
 // REGISTER
@@ -25,6 +25,7 @@ app.post("/register", async (req, res) => {
   const { email, password } = req.body as any;
 
   try {
+    // Validación
     if (!email || !password) {
       return res.status(400).json({
         ok: false,
@@ -32,21 +33,30 @@ app.post("/register", async (req, res) => {
       });
     }
 
+    // Hash password
     const hash = await bcrypt.hash(password, 10);
 
+    // INSERT (compatible con PgBouncer)
     const result = await pool.query({
-      text: "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id, email",
+      text: `
+        INSERT INTO users (email, password)
+        VALUES ($1, $2)
+        RETURNING id, email
+      `,
       values: [email, hash],
     });
 
-    res.json({ ok: true, user: result.rows[0] });
+    res.json({
+      ok: true,
+      user: result.rows[0],
+    });
 
   } catch (err: any) {
-    console.error("🔥 ERROR COMPLETO:", err);
+    console.error("🔥 ERROR REAL:", err);
 
     res.status(500).json({
       ok: false,
-      error: err,
+      error: err.message || err,
     });
   }
 });
