@@ -4,8 +4,9 @@ import bcrypt from "bcryptjs";
 
 const { Pool } = pkg;
 
+// ✅ CONEXIÓN FINAL CORRECTA (SUPABASE + RAILWAY)
 const pool = new Pool({
-  connectionString: "postgresql://postgres:Bfo2rpUjm6Xa4Oyk@aws-0-us-east-1.pooler.supabase.com:6543/postgres",
+  connectionString: "postgresql://postgres.piiazllngkaduspmshnq:Bfo2rpUjm6Xa4Oyk@aws-1-us-east-1.pooler.supabase.com:6543/postgres",
   ssl: {
     rejectUnauthorized: false,
   },
@@ -14,10 +15,12 @@ const pool = new Pool({
   connectionTimeoutMillis: 10000,
 });
 
+// TEST
 app.get("/", (req, res) => {
   res.json({ message: "Lumetra funcionando 🚀" });
 });
 
+// REGISTER
 app.post("/register", async (req, res) => {
   const { email, password } = req.body as any;
 
@@ -55,6 +58,7 @@ app.post("/register", async (req, res) => {
   }
 });
 
+// START
 const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
