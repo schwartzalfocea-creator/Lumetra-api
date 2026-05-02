@@ -17,7 +17,7 @@ const pool = new Pool({
 
 // TEST
 app.get("/", (req, res) => {
-  res.json({ message: "Lumetra funcionando 🚀" });
+  res.json({ message: "CAMBIO TEST 123" });
 });
 
 // REGISTER
