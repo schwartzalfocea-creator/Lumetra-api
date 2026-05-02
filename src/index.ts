@@ -10,16 +10,15 @@ const app = express();
 
 app.use(express.json());
 
-// 🔥 CORS CORREGIDO PARA VERCEL
+// 🔥 CORS DEFINITIVO (ACEPTA VERCEL Y EVITA BLOQUEOS)
 app.use(
   cors({
-    origin: "https://lumetra-frontend-one.vercel.app",
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: true,
+    credentials: true,
   })
 );
 
-// 🔐 SECRET (después lo movemos a .env)
+// 🔐 SECRET (luego lo pasamos a .env)
 const JWT_SECRET = "SECRET_KEY";
 
 // ✅ CONEXIÓN DB
