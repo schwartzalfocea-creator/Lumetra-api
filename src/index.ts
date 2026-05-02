@@ -1,5 +1,30 @@
-app.post("/login", async (req, res) => {
-  const { email, password } = req.body as any;
+import express from "express";
+import pkg from "pg";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
+const { Pool } = pkg;
+
+const app = express();
+app.use(express.json());
+
+// ✅ CONEXIÓN CORRECTA
+const pool = new Pool({
+  connectionString: "postgresql://postgres.piiazllngkaduspmshnq:Bfo2rpUjm6Xa4Oyk@aws-1-us-east-1.pooler.supabase.com:6543/postgres",
+  ssl: {
+    rejectUnauthorized: false,
+  },
+  max: 1,
+});
+
+// TEST
+app.get("/", (req, res) => {
+  res.json({ message: "Lumetra funcionando 🚀" });
+});
+
+// REGISTER
+app.post("/register", async (req, res) => {
+  const { email, password } = req.body;
 
   try {
     if (!email || !password) {
@@ -9,6 +34,47 @@ app.post("/login", async (req, res) => {
       });
     }
 
+    const existing = await pool.query(
+      "SELECT id FROM users WHERE email = $1",
+      [email]
+    );
+
+    if (existing.rows.length > 0) {
+      return res.status(400).json({
+        ok: false,
+        error: "El usuario ya existe",
+      });
+    }
+
+    const hash = await bcrypt.hash(password, 10);
+
+    const result = await pool.query(
+      `INSERT INTO users (email, password)
+       VALUES ($1, $2)
+       RETURNING id, email`,
+      [email, hash]
+    );
+
+    res.json({
+      ok: true,
+      user: result.rows[0],
+    });
+
+  } catch (err: any) {
+    console.error("🔥 REGISTER ERROR:", err);
+
+    res.status(500).json({
+      ok: false,
+      error: err.message || err,
+    });
+  }
+});
+
+// LOGIN
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
     const result = await pool.query(
       "SELECT * FROM users WHERE email = $1",
       [email]
@@ -23,9 +89,9 @@ app.post("/login", async (req, res) => {
 
     const user = result.rows[0];
 
-    const isValid = await bcrypt.compare(password, user.password);
+    const valid = await bcrypt.compare(password, user.password);
 
-    if (!isValid) {
+    if (!valid) {
       return res.status(400).json({
         ok: false,
         error: "Password incorrecto",
@@ -55,4 +121,11 @@ app.post("/login", async (req, res) => {
       error: err.message || err,
     });
   }
+});
+
+// START
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log("🚀 Server running on port", port);
 });
