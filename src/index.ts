@@ -1,5 +1,5 @@
 import express from "express";
-import cors from "cors"; // 👈 AGREGADO
+import cors from "cors";
 import pkg from "pg";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -9,14 +9,23 @@ const { Pool } = pkg;
 const app = express();
 
 app.use(express.json());
-app.use(cors()); // 👈 AGREGADO
+
+// 🔥 CORS CORREGIDO PARA VERCEL
+app.use(
+  cors({
+    origin: "https://lumetra-frontend-one.vercel.app",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 // 🔐 SECRET (después lo movemos a .env)
 const JWT_SECRET = "SECRET_KEY";
 
 // ✅ CONEXIÓN DB
 const pool = new Pool({
-  connectionString: "postgresql://postgres.piiazllngkaduspmshnq:Bfo2rpUjm6Xa4Oyk@aws-1-us-east-1.pooler.supabase.com:6543/postgres",
+  connectionString:
+    "postgresql://postgres.piiazllngkaduspmshnq:Bfo2rpUjm6Xa4Oyk@aws-1-us-east-1.pooler.supabase.com:6543/postgres",
   ssl: {
     rejectUnauthorized: false,
   },
@@ -92,7 +101,6 @@ app.post("/register", async (req, res) => {
       ok: true,
       user: result.rows[0],
     });
-
   } catch (err: any) {
     console.error("🔥 REGISTER ERROR:", err);
 
@@ -145,7 +153,6 @@ app.post("/login", async (req, res) => {
         email: user.email,
       },
     });
-
   } catch (err: any) {
     console.error("🔥 LOGIN ERROR:", err);
 
