@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors"; // 👈 AGREGADO
 import pkg from "pg";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -6,7 +7,9 @@ import jwt from "jsonwebtoken";
 const { Pool } = pkg;
 
 const app = express();
+
 app.use(express.json());
+app.use(cors()); // 👈 AGREGADO
 
 // 🔐 SECRET (después lo movemos a .env)
 const JWT_SECRET = "SECRET_KEY";
@@ -19,7 +22,6 @@ const pool = new Pool({
   },
   max: 1,
 });
-
 
 // 🔐 MIDDLEWARE AUTH
 const auth = (req, res, next) => {
@@ -48,12 +50,10 @@ const auth = (req, res, next) => {
   }
 };
 
-
 // TEST
 app.get("/", (req, res) => {
   res.json({ message: "Lumetra funcionando 🚀" });
 });
-
 
 // REGISTER
 app.post("/register", async (req, res) => {
@@ -102,7 +102,6 @@ app.post("/register", async (req, res) => {
     });
   }
 });
-
 
 // LOGIN
 app.post("/login", async (req, res) => {
@@ -157,7 +156,6 @@ app.post("/login", async (req, res) => {
   }
 });
 
-
 // 🔒 RUTA PROTEGIDA
 app.get("/me", auth, (req, res) => {
   res.json({
@@ -165,7 +163,6 @@ app.get("/me", auth, (req, res) => {
     user: req.user,
   });
 });
-
 
 // START
 const port = process.env.PORT || 8080;
