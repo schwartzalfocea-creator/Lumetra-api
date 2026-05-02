@@ -1,27 +1,4 @@
-import app from "./app.js";
-import pkg from "pg";
-import bcrypt from "bcryptjs";
-
-const { Pool } = pkg;
-
-// ✅ CONEXIÓN FINAL CORRECTA (SUPABASE + RAILWAY)
-const pool = new Pool({
-  connectionString: "postgresql://postgres.piiazllngkaduspmshnq:Bfo2rpUjm6Xa4Oyk@aws-1-us-east-1.pooler.supabase.com:6543/postgres",
-  ssl: {
-    rejectUnauthorized: false,
-  },
-  max: 1,
-  idleTimeoutMillis: 0,
-  connectionTimeoutMillis: 10000,
-});
-
-// TEST
-app.get("/", (req, res) => {
-  res.json({ message: "Lumetra funcionando 🚀" });
-});
-
-// REGISTER
-app.post("/register", async (req, res) => {
+app.post("/login", async (req, res) => {
   const { email, password } = req.body as any;
 
   try {
@@ -32,35 +9,50 @@ app.post("/register", async (req, res) => {
       });
     }
 
-    const hash = await bcrypt.hash(password, 10);
+    const result = await pool.query(
+      "SELECT * FROM users WHERE email = $1",
+      [email]
+    );
 
-    const result = await pool.query({
-      text: `
-        INSERT INTO users (email, password)
-        VALUES ($1, $2)
-        RETURNING id, email
-      `,
-      values: [email, hash],
-    });
+    if (result.rows.length === 0) {
+      return res.status(400).json({
+        ok: false,
+        error: "Usuario no encontrado",
+      });
+    }
+
+    const user = result.rows[0];
+
+    const isValid = await bcrypt.compare(password, user.password);
+
+    if (!isValid) {
+      return res.status(400).json({
+        ok: false,
+        error: "Password incorrecto",
+      });
+    }
+
+    const token = jwt.sign(
+      { id: user.id, email: user.email },
+      "SECRET_KEY",
+      { expiresIn: "7d" }
+    );
 
     res.json({
       ok: true,
-      user: result.rows[0],
+      token,
+      user: {
+        id: user.id,
+        email: user.email,
+      },
     });
 
   } catch (err: any) {
-    console.error("🔥 ERROR REAL:", err);
+    console.error("🔥 LOGIN ERROR:", err);
 
     res.status(500).json({
       ok: false,
       error: err.message || err,
     });
   }
-});
-
-// START
-const port = process.env.PORT || 8080;
-
-app.listen(port, () => {
-  console.log("🚀 Server running on port", port);
 });
