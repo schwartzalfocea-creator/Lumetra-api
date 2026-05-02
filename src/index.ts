@@ -1,22 +1,18 @@
-import dns from "dns";
-dns.setDefaultResultOrder("ipv4first");
-
 import app from "./app.js";
 import pkg from "pg";
 import bcrypt from "bcryptjs";
 
 const { Pool } = pkg;
 
-// 🔥 CONEXIÓN DEFINITIVA (DIRECTA + IPv4)
+// ✅ POOLER CORRECTO + PGBOUNCER SAFE
 const pool = new Pool({
-  host: "db.piiazllngkaduspmshnq.supabase.co",
-  port: 5432,
-  user: "postgres",
-  password: "Bfo2rpUjm6Xa4Oyk",
-  database: "postgres",
+  connectionString: "postgresql://postgres.piiazllngkaduspmshnq:Bfo2rpUjm6Xa4Oyk@aws-0-us-east-1.pooler.supabase.com:6543/postgres",
   ssl: {
     rejectUnauthorized: false,
   },
+  max: 1,
+  idleTimeoutMillis: 0,
+  connectionTimeoutMillis: 10000,
 });
 
 // TEST
@@ -38,19 +34,19 @@ app.post("/register", async (req, res) => {
 
     const hash = await bcrypt.hash(password, 10);
 
-    const result = await pool.query(
-      "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id, email",
-      [email, hash]
-    );
+    const result = await pool.query({
+      text: "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id, email",
+      values: [email, hash],
+    });
 
     res.json({ ok: true, user: result.rows[0] });
 
   } catch (err: any) {
-    console.error("🔥 ERROR:", err);
+    console.error("🔥 ERROR COMPLETO:", err);
 
     res.status(500).json({
       ok: false,
-      error: err.message,
+      error: err,
     });
   }
 });
